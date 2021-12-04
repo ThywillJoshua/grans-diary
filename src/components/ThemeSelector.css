@@ -21,3 +21,12 @@
   height: 1.5rem;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1220px) {
+  .mode-toggle {
+    margin-left: 2rem;
+  }
+  .theme-buttons {
+    margin-right: 2rem;
+  }
+}

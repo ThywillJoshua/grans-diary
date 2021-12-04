@@ -2,6 +2,12 @@
   background-color: #58249c;
   padding: 1.25rem;
   color: #fff;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.navbar h1 {
+  font-size: 1.1em;
 }
 
 .navbar nav {
@@ -32,4 +38,11 @@
 .navbar a:last-child:hover {
   color: #333;
   background: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar a:last-child {
+    margin-left: 1.5rem;
+    width: 5rem;
+  }
 }
