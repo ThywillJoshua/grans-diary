@@ -1,9 +1,11 @@
 .recipe-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+
   grid-gap: 2.5rem;
   max-width: 75rem;
+  grid-template-columns: repeat(auto-fill, 20rem);
   margin: 2.5rem auto;
+  justify-content: center;
 }
 .recipe-list .card {
   background: #fff;
@@ -42,4 +44,13 @@
   padding: 0.5rem;
   border-radius: 0.25rem;
   margin: 1.25rem auto 0;
+}
+
+.recipe-list .card.dark {
+  background: #555;
+}
+.recipe-list .card.dark p,
+.recipe-list .card.dark h3,
+.recipe-list .card.dark div {
+  color: #e4e4e4;
 }

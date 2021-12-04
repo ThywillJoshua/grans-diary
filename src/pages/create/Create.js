@@ -35,8 +35,10 @@ export default function Create() {
   useEffect(() => {
     if (data) {
       navigate("/");
+    } else if (error) {
+      console.log(error);
     }
-  }, [data, navigate]);
+  }, [data, navigate, error]);
 
   const handleAdd = (e) => {
     e.preventDefault();
