@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
+
+import { projectFirestore } from "../../firebase/config";
 
 //styles
 import "./Create.css";
@@ -16,34 +17,27 @@ export default function Create() {
 
   const navigate = useNavigate();
 
-  const { postData, data, error } = useFetch(
-    "http://localhost:3000/recipes",
-    "POST"
-  );
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    postData({
+    const doc = {
       title,
       ingredients,
       method,
       cookingTime: cookingTime + " minutes",
-    });
-  };
+    };
 
-  useEffect(() => {
-    if (data) {
+    try {
+      await projectFirestore.collection("recipes").add(doc);
       navigate("/");
-    } else if (error) {
-      console.log(error);
+    } catch (error) {
+      console.error(`Couldn't add recipe ${error.message}`);
     }
-  }, [data, navigate, error]);
+  };
 
   const handleAdd = (e) => {
     e.preventDefault();
-    const ingTrimmed = newIngredient.trim();
-    const ing = ingTrimmed[0].toUpperCase() + ingTrimmed.slice(1).toLowerCase();
+    const ing = newIngredient.trim();
 
     if (!ing || ingredients.includes(ing)) {
       setNewIngredient("");
@@ -57,7 +51,7 @@ export default function Create() {
 
   return (
     <div className="create">
-      <h1 className="page-title">Add a New Recipe</h1>
+      <h2 className="page-title">Add a New Recipe</h2>
 
       <form onSubmit={handleSubmit}>
         <label>

@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
+import { useEffect, useState } from "react";
+
 import { useTheme } from "../../hooks/useTheme";
+import { projectFirestore } from "../../firebase/config";
 
 //styles
 import "./Recipe.css";
@@ -9,10 +10,30 @@ import "./Recipe.css";
 export default function Recipe() {
   const { mode } = useTheme();
   const { id } = useParams();
-  const url = `http://localhost:3000/recipes/${id}`;
 
-  const { data: recipe, isPending, error } = useFetch(url);
+  const [recipe, setRecipe] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(false);
 
+  useEffect(() => {
+    setIsPending(true);
+
+    projectFirestore
+      .collection("recipes")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setIsPending(false);
+          setRecipe(doc.data());
+        } else {
+          setIsPending(false);
+          setError("No recipe found!");
+        }
+      });
+  }, [id]);
+
+  //navigate back on error
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +51,7 @@ export default function Recipe() {
       {recipe && (
         <>
           <h2 className="page-title">{recipe.title}</h2>
-          <p>Takes {recipe.CookingTime} to cook</p>
+          <p>Takes {recipe.cookingTime} to cook</p>
           <ul>
             {recipe.ingredients.map((ing) => {
               return <li key={ing}>{ing}</li>;

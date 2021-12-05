@@ -54,3 +54,11 @@
 .recipe-list .card.dark div {
   color: #e4e4e4;
 }
+
+.delete {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  cursor: pointer;
+  filter: invert(60%);
+}
