@@ -7,7 +7,7 @@ import { faAdjust } from "@fortawesome/free-solid-svg-icons";
 //style
 import "./ThemeSelector.css";
 
-const themeColors = ["#58249c", "#249c6b", "#b70233"];
+const themeColors = ["#3D56B2", "#249c6b", "#b70233"];
 
 export default function ThemeSelector() {
   const { changeColor, changeMode, mode } = useTheme();

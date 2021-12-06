@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
+import { useTheme } from "../../hooks/useTheme";
 
 import { projectFirestore } from "../../firebase/config";
 
@@ -12,6 +13,9 @@ export default function Create() {
   const [cookingTime, setCookingTime] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
   const [ingredients, setingredients] = useState([]);
+
+  const { color } = useTheme();
+  const btnColor = { backgroundColor: color };
 
   const ingredientInput = useRef(null);
 
@@ -73,7 +77,7 @@ export default function Create() {
               value={newIngredient}
               ref={ingredientInput}
             />
-            <button className="btn" onClick={handleAdd}>
+            <button className="btn" style={btnColor} onClick={handleAdd}>
               Add
             </button>
           </div>
@@ -104,7 +108,9 @@ export default function Create() {
           />
         </label>
 
-        <button className="btn">Submit</button>
+        <button className="btn" style={btnColor}>
+          Submit
+        </button>
       </form>
     </div>
   );
