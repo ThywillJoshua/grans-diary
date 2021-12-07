@@ -10,6 +10,10 @@
   font-size: 1.1em;
 }
 
+.navbar .no-emoji {
+  display: none;
+}
+
 .navbar nav {
   display: flex;
   align-items: center;
@@ -44,5 +48,13 @@
   .navbar a:last-child {
     margin-left: 1.5rem;
     width: 5rem;
+  }
+
+  .navbar .emoji {
+    display: none;
+  }
+
+  .navbar .no-emoji {
+    display: initial;
   }
 }

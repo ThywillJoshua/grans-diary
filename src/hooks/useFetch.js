@@ -27,9 +27,11 @@ export default function useFetch(url, method = "GET") {
           ...fetchOptions,
           signal: controller.signal,
         });
+
         if (!res.ok) {
           throw new Error(res.statusText);
         }
+
         const data = await res.json();
 
         setIsPending(false);
